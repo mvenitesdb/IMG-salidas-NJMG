@@ -124,7 +124,7 @@ canvas{display:block;width:100%;height:auto;aspect-ratio:9/16;border-radius:8px;
 
 <script>
 (function(){
-  var VERSION="v3";
+  var VERSION="v4";
   var W=1080,H=1920,M=80,MINFIT=0.85;
   var THEMES={
     marino:{name:"Azul marino",bg:"#f6f7fa",ink:"#16213a",accent:"#2b4c9b",muted:"#7a8296",line:"#d6dae3"},
@@ -150,8 +150,8 @@ canvas{display:block;width:100%;height:auto;aspect-ratio:9/16;border-radius:8px;
       title:"Salidas congregacionales", subtitle:"Norte, Juan María Gutiérrez", footer:"", theme:"marino",
       custom:{accent:"#2b4c9b",bg:"#f6f7fa"},
       items:[
-        {k:"salida",cont:false,day:"Domingo 18",time:"10:30",meet:"Milazzo y C. Belgrano",c1:"Franco Córdoba",c2:"Ramón Braga",terr:"42, 43"},
-        {k:"salida",cont:false,day:"Lunes 19",time:"17:00",meet:"Filial Ojeda",c1:"Adolfo Sapovsky",c2:"Alberto Usún",terr:"52, 55"},
+        {k:"salida",cont:false,day:"Domingo 18",time:"10:30",meet:"Av. Siempre Viva 742",c1:"Juan Pérez",c2:"Carlos Gómez",terr:"10, 11"},
+        {k:"salida",cont:false,day:"Lunes 19",time:"17:00",meet:"Casa de la familia Rodríguez",c1:"Martín López",c2:"Diego Fernández",terr:"20, 21"},
         {k:"nota",cont:false,day:"Domingo 18",time:"15:00",text:"Limpieza profunda semanal del Salón del Reino"}
       ]
     };
@@ -313,7 +313,7 @@ canvas{display:block;width:100%;height:auto;aspect-ratio:9/16;border-radius:8px;
   }
 
   function render(s,dry,y0,th,list){
-    var y=y0, x0=M, xr=W-M, labelW=(setFont(500,34*s,SANS),ctx.measureText("Punto de encuentro").width), xv=x0+labelW+36*s, maxV=xr-xv;
+    var y=y0, x0=M, xr=W-M, labelW=(setFont(500,38*s,SANS),ctx.measureText("Punto de encuentro").width), xv=x0+labelW+36*s, maxV=xr-xv;
     ctx.textBaseline="alphabetic";
     list.forEach(function(it,idx){
       var showDay=!(it.cont&&idx>0);
@@ -334,11 +334,11 @@ canvas{display:block;width:100%;height:auto;aspect-ratio:9/16;border-radius:8px;
       if(it.k==="salida"){
         [["Punto de encuentro",it.meet],["1.º conductor",it.c1],["2.º conductor",it.c2],["Territorios",it.terr]].forEach(function(r){
           if(!(r[1]||"").trim()) return;
-          setFont(500,50*s,SANS); var lines=wrap(r[1],maxV);
-          var lh=62*s; y+=38*s; var base=y+24*s;
+          setFont(500,46*s,SANS); var lines=wrap(r[1],maxV);
+          var lh=58*s; y+=38*s; var base=y+24*s;
           if(!dry){
-            ctx.textAlign="left"; ctx.fillStyle=mix(th.muted,th.ink,0.4); setFont(500,34*s,SANS); ctx.fillText(r[0],x0,base);
-            ctx.fillStyle=th.ink; setFont(500,50*s,SANS);
+            ctx.textAlign="left"; ctx.fillStyle=mix(th.muted,th.ink,0.4); setFont(500,38*s,SANS); ctx.fillText(r[0],x0,base);
+            ctx.fillStyle=th.ink; setFont(500,46*s,SANS);
             lines.forEach(function(l,li){ ctx.fillText(l,xv,base+li*lh); });
           }
           y=base+(lines.length-1)*lh+16*s;
