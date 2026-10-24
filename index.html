@@ -89,7 +89,7 @@ canvas{display:block;width:100%;height:auto;aspect-ratio:9/16;border-radius:8px;
       <div class="themes" id="themes"></div>
       <div class="custom" id="custom">
         <div><label for="cAccent">Color de acento</label><input id="cAccent" type="color"></div>
-        <div><label for="cBg">Color de fondo</label><input id="cBg" type="color"></div>
+        
       </div>
     </section>
 
@@ -124,21 +124,22 @@ canvas{display:block;width:100%;height:auto;aspect-ratio:9/16;border-radius:8px;
 
 <script>
 (function(){
-  var VERSION="v4";
+  var VERSION="v5";
   var W=1080,H=1920,M=80,MINFIT=0.85;
   var THEMES={
-    marino:{name:"Azul marino",bg:"#f6f7fa",ink:"#16213a",accent:"#2b4c9b",muted:"#7a8296",line:"#d6dae3"},
-    oceano:{name:"Océano",bg:"#f2f7f8",ink:"#0f2a30",accent:"#1b7f8c",muted:"#6f868b",line:"#d2e0e3"},
-    salvia:{name:"Verde",bg:"#f4f7f5",ink:"#16291f",accent:"#2f7458",muted:"#74827a",line:"#d4dfd8"},
-    lavanda:{name:"Lavanda",bg:"#f7f6fb",ink:"#231d3b",accent:"#6a4fc2",muted:"#7f7a93",line:"#dedbea"},
-    bordo:{name:"Bordó",bg:"#f8f6f7",ink:"#2a1a20",accent:"#8a2d45",muted:"#85787d",line:"#ded6d9"},
-    rosa:{name:"Rosa",bg:"#fbf6f8",ink:"#2b1620",accent:"#c2456f",muted:"#8a7580",line:"#e8d9e0"},
-    grafito:{name:"Grafito",bg:"#f5f5f6",ink:"#1d1f24",accent:"#555b69",muted:"#82858d",line:"#dcdde0"},
-    bn:{name:"Blanco y negro",bg:"#ffffff",ink:"#111111",accent:"#111111",muted:"#777777",line:"#dddddd"},
-    noche:{name:"Noche azul",bg:"#10141d",ink:"#eef0f5",accent:"#8fa8f2",muted:"#8d95a8",line:"#2a3142"},
-    bosque:{name:"Noche verde",bg:"#0f1a15",ink:"#e8f1ec",accent:"#6fcf9f",muted:"#84988d",line:"#243629"},
-    dorado:{name:"Noche dorada",bg:"#14120f",ink:"#f3eee2",accent:"#d1a84e",muted:"#9a927f",line:"#2e2a22"},
-    ciruela:{name:"Noche ciruela",bg:"#1a1220",ink:"#f2ecf6",accent:"#c58be0",muted:"#9a8ba5",line:"#33243d"}
+    marino:{name:"Azul marino",bg:"#ffffff",ink:"#16213a",accent:"#2b4c9b",muted:"#7a8296",line:"#e0e3ea"},
+    cielo:{name:"Azul cielo",bg:"#ffffff",ink:"#10283d",accent:"#2f7fc1",muted:"#74869a",line:"#dfe6ee"},
+    oceano:{name:"Océano",bg:"#ffffff",ink:"#0f2a30",accent:"#1b7f8c",muted:"#6f868b",line:"#dce7ea"},
+    verde:{name:"Verde",bg:"#ffffff",ink:"#16291f",accent:"#2f7458",muted:"#74827a",line:"#dde6e0"},
+    oliva:{name:"Oliva",bg:"#ffffff",ink:"#232814",accent:"#66761f",muted:"#7f836c",line:"#e4e6da"},
+    violeta:{name:"Violeta",bg:"#ffffff",ink:"#231d3b",accent:"#6a4fc2",muted:"#7f7a93",line:"#e4e1ee"},
+    ciruela:{name:"Ciruela",bg:"#ffffff",ink:"#2a1730",accent:"#8a3a7a",muted:"#85748a",line:"#e8dfea"},
+    bordo:{name:"Bordó",bg:"#ffffff",ink:"#2a1a20",accent:"#8a2d45",muted:"#85787d",line:"#e6dde0"},
+    rosa:{name:"Rosa",bg:"#ffffff",ink:"#2b1620",accent:"#c2456f",muted:"#8a7580",line:"#eee0e6"},
+    terracota:{name:"Terracota",bg:"#ffffff",ink:"#2b1a12",accent:"#b4532a",muted:"#8a7a72",line:"#eae0da"},
+    ambar:{name:"Ámbar",bg:"#ffffff",ink:"#2a2210",accent:"#b07d12",muted:"#8a8268",line:"#ebe6d8"},
+    grafito:{name:"Grafito",bg:"#ffffff",ink:"#1d1f24",accent:"#555b69",muted:"#82858d",line:"#e1e2e5"},
+    negro:{name:"Negro",bg:"#ffffff",ink:"#111111",accent:"#111111",muted:"#777777",line:"#e2e2e2"}
   };
   var SERIF='Fraunces, Georgia, "Times New Roman", serif';
   var SANS='Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
@@ -177,8 +178,8 @@ canvas{display:block;width:100%;height:auto;aspect-ratio:9/16;border-radius:8px;
   function lum(h){var c=hex2rgb(h).map(function(v){v/=255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4)});return 0.2126*c[0]+0.7152*c[1]+0.0722*c[2];}
   function getTheme(){
     if(state.theme==="custom"){
-      var bg=state.custom.bg, ac=state.custom.accent;
-      var ink=lum(bg)>0.4?"#161a22":"#f1f3f7";
+      var bg="#ffffff", ac=state.custom.accent;
+      var ink="#161a22";
       return {bg:bg,ink:ink,accent:ac,muted:mix(ink,bg,0.5),line:mix(ink,bg,0.84)};
     }
     return THEMES[state.theme]||THEMES.marino;
@@ -194,7 +195,7 @@ canvas{display:block;width:100%;height:auto;aspect-ratio:9/16;border-radius:8px;
     var box=$("themes"); box.innerHTML="";
     Object.keys(THEMES).forEach(function(k){
       var b=document.createElement("button"); b.type="button"; b.className="sw";
-      var t=THEMES[k]; b.style.background="linear-gradient(135deg,"+t.bg+" 50%,"+t.accent+" 50%)";
+      var t=THEMES[k]; b.style.background=t.accent;
       b.title=t.name; b.setAttribute("aria-label",t.name); b.setAttribute("aria-pressed",String(state.theme===k));
       b.onclick=function(){ state.theme=k; bindTop(); changed(); };
       box.appendChild(b);
@@ -205,9 +206,9 @@ canvas{display:block;width:100%;height:auto;aspect-ratio:9/16;border-radius:8px;
     c.onclick=function(){ state.theme="custom"; bindTop(); changed(); };
     box.appendChild(c);
     $("custom").classList.toggle("on",state.theme==="custom");
-    $("cAccent").value=state.custom.accent; $("cBg").value=state.custom.bg;
+    $("cAccent").value=state.custom.accent;
     $("cAccent").oninput=function(){ state.custom.accent=$("cAccent").value; changed(); };
-    $("cBg").oninput=function(){ state.custom.bg=$("cBg").value; changed(); };
+    
   }
 
   function fieldHTML(i,key,label,val,ph){
