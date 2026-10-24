@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>IMG salidas NJMG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#f4f5f7; --surface:#ffffff; --ink:#16213a; --muted:#6b7385; --line:#dfe2e8; --accent:#2b4c9b; --accent-ink:#ffffff; --danger:#b3261e;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#10131a; --surface:#181c26; --ink:#eceff5; --muted:#99a1b3; --line:#2a3040; --accent:#7f9cf0; --accent-ink:#10131a; --danger:#f2b8b5; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10131a; --surface:#181c26; --ink:#eceff5; --muted:#99a1b3; --line:#2a3040; --accent:#7f9cf0; --accent-ink:#10131a; --danger:#f2b8b5; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
+.wrap{max-width:1080px;margin:0 auto;padding:20px 16px 120px;display:grid;gap:24px}
+@media(min-width:860px){.wrap{grid-template-columns:minmax(0,1fr) 380px;align-items:start;padding:32px 24px 48px}.preview{position:sticky;top:24px}}
+h1{font:600 26px/1.2 Fraunces,Georgia,serif;margin:0 0 4px}
+.ver{font:500 12px Inter,sans-serif;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 8px;vertical-align:middle;margin-left:6px}
+.sub{color:var(--muted);margin:0 0 18px;font-size:14px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+label{display:block;font-size:13px;color:var(--muted);margin:0 0 4px}
+input[type=text],textarea{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;min-height:44px}
+input[type=color]{width:56px;height:44px;padding:2px;border:1px solid var(--line);border-radius:10px;background:var(--bg);cursor:pointer}
+input:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.row{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+.field{margin-bottom:12px}
+.field:last-child{margin-bottom:0}
+.themes{display:flex;gap:10px;flex-wrap:wrap}
+.sw{width:44px;height:44px;border-radius:50%;border:2px solid var(--line);cursor:pointer;padding:0;color:var(--ink);font:600 20px Inter,sans-serif}
+.sw[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 3px var(--surface) inset}
+.custom{display:none;gap:16px;margin-top:14px;align-items:flex-end;flex-wrap:wrap}
+.custom.on{display:flex}
+.custom div{display:grid;gap:4px}
+.card{margin-top:14px}
+.card-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+.card-head strong{font-size:15px}
+.tools{display:flex;gap:6px}
+.ib{min-width:44px;min-height:44px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;font-size:16px;cursor:pointer}
+.ib.del{color:var(--danger)}
+.chk{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--ink);margin:0 0 12px;min-height:44px;cursor:pointer}
+.chk input{width:22px;height:22px;accent-color:var(--accent)}
+.btn{min-height:48px;padding:0 18px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 15px Inter,sans-serif;cursor:pointer}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.adds{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.preview .panel{padding:12px}
+canvas{display:block;width:100%;height:auto;aspect-ratio:9/16;border-radius:8px;background:#fff}
+.pages{display:none;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.pages.on{display:flex}
+.pg{min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:500 14px Inter,sans-serif;cursor:pointer}
+.pg[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.actions{position:fixed;left:0;right:0;bottom:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));background:var(--surface);border-top:1px solid var(--line);display:flex;gap:10px;justify-content:center;z-index:5}
+.actions .btn{flex:1;max-width:240px}
+@media(min-width:860px){.actions{position:static;border:0;background:none;padding:12px 0 0}.actions .btn{max-width:none}}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;flex-direction:column;align-items:center;gap:12px;padding:16px;z-index:20;overflow:auto}
+.overlay.on{display:flex}
+.overlay .imgs{display:grid;gap:16px;width:100%;max-width:420px}
+.overlay img{width:100%;border-radius:8px;-webkit-touch-callout:default}
+.overlay p{color:#fff;margin:0;text-align:center;font-size:14px}
+.hint{color:var(--muted);font-size:13px;margin:10px 0 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <main>
+    <h1>Salidas congregacionales <span class="ver" id="ver"></span></h1>
+    <p class="sub">Complete los datos y las imágenes se generan solas. Todo queda guardado en este dispositivo.</p>
+
+    <section class="panel" aria-label="Encabezado">
+      <div class="row">
+        <div class="field"><label for="title">Título</label><input id="title" type="text" autocomplete="off"></div>
+        <div class="field"><label for="subtitle">Grupo o zona</label><input id="subtitle" type="text" autocomplete="off"></div>
+      </div>
+      <div class="field"><label for="footer">Mensaje al pie (opcional)</label><input id="footer" type="text" autocomplete="off" placeholder="Solo si es necesario"></div>
+      <label>Color</label>
+      <div class="themes" id="themes"></div>
+      <div class="custom" id="custom">
+        <div><label for="cAccent">Color de acento</label><input id="cAccent" type="color"></div>
+        <div><label for="cBg">Color de fondo</label><input id="cBg" type="color"></div>
+      </div>
+    </section>
+
+    <div id="items"></div>
+
+    <div class="adds">
+      <button class="btn" id="addSalida" type="button">+ Nuevo día con salida</button>
+      <button class="btn" id="addMismo" type="button">+ Otra salida el mismo día</button>
+      <button class="btn" id="addNota" type="button">+ Agregar aviso</button>
+      <button class="btn" id="reset" type="button">Empezar de cero</button>
+    </div>
+  </main>
+
+  <aside class="preview" aria-label="Vista previa">
+    <div class="panel">
+      <div class="pages" id="pages"></div>
+      <canvas id="cv" width="1080" height="1920"></canvas>
+    </div>
+    <div class="actions">
+      <button class="btn primary" id="share" type="button">Compartir</button>
+      <button class="btn" id="download" type="button">Guardar imagen</button>
+    </div>
+    <p class="hint" id="hint">Formato 1080 × 1920 (9:16), listo para WhatsApp.</p>
+  </aside>
+</div>
+
+<div class="overlay" id="overlay" role="dialog" aria-label="Imágenes generadas">
+  <p>Mantenga presionada cada imagen para guardarla o compartirla.</p>
+  <div class="imgs" id="ov-imgs"></div>
+  <button class="btn primary" id="ov-close" type="button">Cerrar</button>
+</div>
+
+<script>
+(function(){
+  var VERSION="v3";
+  var W=1080,H=1920,M=80,MINFIT=0.85;
+  var THEMES={
+    marino:{name:"Azul marino",bg:"#f6f7fa",ink:"#16213a",accent:"#2b4c9b",muted:"#7a8296",line:"#d6dae3"},
+    oceano:{name:"Océano",bg:"#f2f7f8",ink:"#0f2a30",accent:"#1b7f8c",muted:"#6f868b",line:"#d2e0e3"},
+    salvia:{name:"Verde",bg:"#f4f7f5",ink:"#16291f",accent:"#2f7458",muted:"#74827a",line:"#d4dfd8"},
+    lavanda:{name:"Lavanda",bg:"#f7f6fb",ink:"#231d3b",accent:"#6a4fc2",muted:"#7f7a93",line:"#dedbea"},
+    bordo:{name:"Bordó",bg:"#f8f6f7",ink:"#2a1a20",accent:"#8a2d45",muted:"#85787d",line:"#ded6d9"},
+    rosa:{name:"Rosa",bg:"#fbf6f8",ink:"#2b1620",accent:"#c2456f",muted:"#8a7580",line:"#e8d9e0"},
+    grafito:{name:"Grafito",bg:"#f5f5f6",ink:"#1d1f24",accent:"#555b69",muted:"#82858d",line:"#dcdde0"},
+    bn:{name:"Blanco y negro",bg:"#ffffff",ink:"#111111",accent:"#111111",muted:"#777777",line:"#dddddd"},
+    noche:{name:"Noche azul",bg:"#10141d",ink:"#eef0f5",accent:"#8fa8f2",muted:"#8d95a8",line:"#2a3142"},
+    bosque:{name:"Noche verde",bg:"#0f1a15",ink:"#e8f1ec",accent:"#6fcf9f",muted:"#84988d",line:"#243629"},
+    dorado:{name:"Noche dorada",bg:"#14120f",ink:"#f3eee2",accent:"#d1a84e",muted:"#9a927f",line:"#2e2a22"},
+    ciruela:{name:"Noche ciruela",bg:"#1a1220",ink:"#f2ecf6",accent:"#c58be0",muted:"#9a8ba5",line:"#33243d"}
+  };
+  var SERIF='Fraunces, Georgia, "Times New Roman", serif';
+  var SANS='Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif';
+  var KEY="salidas-congregacionales-v1";
+
+  function blank(){return {k:"salida",cont:false,day:"",time:"",meet:"",c1:"",c2:"",terr:""};}
+  function defaults(){
+    return {
+      title:"Salidas congregacionales", subtitle:"Norte, Juan María Gutiérrez", footer:"", theme:"marino",
+      custom:{accent:"#2b4c9b",bg:"#f6f7fa"},
+      items:[
+        {k:"salida",cont:false,day:"Domingo 18",time:"10:30",meet:"Milazzo y C. Belgrano",c1:"Franco Córdoba",c2:"Ramón Braga",terr:"42, 43"},
+        {k:"salida",cont:false,day:"Lunes 19",time:"17:00",meet:"Filial Ojeda",c1:"Adolfo Sapovsky",c2:"Alberto Usún",terr:"52, 55"},
+        {k:"nota",cont:false,day:"Domingo 18",time:"15:00",text:"Limpieza profunda semanal del Salón del Reino"}
+      ]
+    };
+  }
+  var state;
+  try{ var raw=localStorage.getItem(KEY); state=raw?JSON.parse(raw):defaults(); }catch(e){ state=defaults(); }
+  if(!state||!state.items){ state=defaults(); }
+  if(!state.custom) state.custom={accent:"#2b4c9b",bg:"#f6f7fa"};
+  if(!THEMES[state.theme]&&state.theme!=="custom") state.theme="marino";
+
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(state)); }catch(e){} }
+  var $=function(id){return document.getElementById(id)};
+  var cv=$("cv");
+  var scratch=document.createElement("canvas"); scratch.width=W; scratch.height=H;
+  var ctx=scratch.getContext("2d");
+  var curPage=0, lastPages=1;
+  $("ver").textContent=VERSION;
+
+  /* ---------- Colores ---------- */
+  function hex2rgb(h){h=h.replace("#","");if(h.length===3)h=h.split("").map(function(c){return c+c}).join("");return [parseInt(h.substr(0,2),16),parseInt(h.substr(2,2),16),parseInt(h.substr(4,2),16)];}
+  function rgb2hex(a){return "#"+a.map(function(v){return ("0"+Math.round(v).toString(16)).slice(-2)}).join("");}
+  function mix(a,b,t){var x=hex2rgb(a),y=hex2rgb(b);return rgb2hex([x[0]+(y[0]-x[0])*t,x[1]+(y[1]-x[1])*t,x[2]+(y[2]-x[2])*t]);}
+  function lum(h){var c=hex2rgb(h).map(function(v){v/=255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4)});return 0.2126*c[0]+0.7152*c[1]+0.0722*c[2];}
+  function getTheme(){
+    if(state.theme==="custom"){
+      var bg=state.custom.bg, ac=state.custom.accent;
+      var ink=lum(bg)>0.4?"#161a22":"#f1f3f7";
+      return {bg:bg,ink:ink,accent:ac,muted:mix(ink,bg,0.5),line:mix(ink,bg,0.84)};
+    }
+    return THEMES[state.theme]||THEMES.marino;
+  }
+
+  /* ---------- Formulario ---------- */
+  function esc(s){return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;")}
+  function bindTop(){
+    ["title","subtitle","footer"].forEach(function(f){
+      $(f).value=state[f]||"";
+      $(f).oninput=function(){ state[f]=$(f).value; changed(); };
+    });
+    var box=$("themes"); box.innerHTML="";
+    Object.keys(THEMES).forEach(function(k){
+      var b=document.createElement("button"); b.type="button"; b.className="sw";
+      var t=THEMES[k]; b.style.background="linear-gradient(135deg,"+t.bg+" 50%,"+t.accent+" 50%)";
+      b.title=t.name; b.setAttribute("aria-label",t.name); b.setAttribute("aria-pressed",String(state.theme===k));
+      b.onclick=function(){ state.theme=k; bindTop(); changed(); };
+      box.appendChild(b);
+    });
+    var c=document.createElement("button"); c.type="button"; c.className="sw"; c.textContent="+";
+    c.style.background="conic-gradient(#e0524d,#e8b83d,#5cc16a,#3fa5d6,#8a62d6,#e0524d)"; c.style.color="#fff";
+    c.title="Color personalizado"; c.setAttribute("aria-label","Color personalizado"); c.setAttribute("aria-pressed",String(state.theme==="custom"));
+    c.onclick=function(){ state.theme="custom"; bindTop(); changed(); };
+    box.appendChild(c);
+    $("custom").classList.toggle("on",state.theme==="custom");
+    $("cAccent").value=state.custom.accent; $("cBg").value=state.custom.bg;
+    $("cAccent").oninput=function(){ state.custom.accent=$("cAccent").value; changed(); };
+    $("cBg").oninput=function(){ state.custom.bg=$("cBg").value; changed(); };
+  }
+
+  function fieldHTML(i,key,label,val,ph){
+    return '<div class="field"><label for="f'+i+key+'">'+label+'</label><input id="f'+i+key+'" data-i="'+i+'" data-k="'+key+'" type="text" autocomplete="off" value="'+esc(val||"")+'" placeholder="'+(ph||"")+'"></div>';
+  }
+  function renderItems(){
+    var box=$("items"); var html="";
+    state.items.forEach(function(it,i){
+      var isS=it.k==="salida", cont=!!it.cont&&i>0;
+      html+='<section class="panel card" aria-label="'+(isS?"Salida":"Aviso")+' '+(i+1)+'">'
+        +'<div class="card-head"><strong>'+(isS?"Salida":"Aviso")+' '+(i+1)+'</strong><div class="tools">'
+        +'<button class="ib" type="button" data-act="up" data-i="'+i+'" aria-label="Subir">↑</button>'
+        +'<button class="ib" type="button" data-act="down" data-i="'+i+'" aria-label="Bajar">↓</button>'
+        +'<button class="ib" type="button" data-act="dup" data-i="'+i+'" aria-label="Duplicar">⧉</button>'
+        +'<button class="ib del" type="button" data-act="del" data-i="'+i+'" aria-label="Eliminar">✕</button>'
+        +'</div></div>';
+      if(i>0) html+='<label class="chk"><input type="checkbox" data-i="'+i+'" data-k="cont"'+(cont?' checked':'')+'> Mismo día que la anterior</label>';
+      if(cont){
+        html+=fieldHTML(i,"time","Horario",it.time,"10:30");
+      } else {
+        html+='<div class="row">'+fieldHTML(i,"day","Día y fecha",it.day,"Domingo 18")+fieldHTML(i,"time","Horario",it.time,"10:30")+'</div>';
+      }
+      if(isS){
+        html+=fieldHTML(i,"meet","Punto de encuentro",it.meet,"")
+          +'<div class="row">'+fieldHTML(i,"c1","1.º conductor",it.c1,"")+fieldHTML(i,"c2","2.º conductor",it.c2,"")+'</div>'
+          +fieldHTML(i,"terr","Territorios",it.terr,"42, 43");
+      } else {
+        html+=fieldHTML(i,"text","Texto del aviso",it.text,"Texto del aviso");
+      }
+      html+='</section>';
+    });
+    box.innerHTML=html;
+  }
+  $("items").addEventListener("input",function(e){
+    var t=e.target; if(!t.dataset||t.dataset.k===undefined||t.type==="checkbox") return;
+    state.items[+t.dataset.i][t.dataset.k]=t.value; changed();
+  });
+  $("items").addEventListener("change",function(e){
+    var t=e.target; if(t.type!=="checkbox") return;
+    state.items[+t.dataset.i].cont=t.checked; renderItems(); changed();
+  });
+  $("items").addEventListener("click",function(e){
+    var b=e.target.closest("button[data-act]"); if(!b) return;
+    var i=+b.dataset.i, a=b.dataset.act, it=state.items;
+    if(a==="del"){ it.splice(i,1); }
+    else if(a==="dup"){ it.splice(i+1,0,JSON.parse(JSON.stringify(it[i]))); }
+    else if(a==="up"&&i>0){ var t=it[i]; it[i]=it[i-1]; it[i-1]=t; }
+    else if(a==="down"&&i<it.length-1){ var t2=it[i]; it[i]=it[i+1]; it[i+1]=t2; }
+    renderItems(); changed();
+  });
+  $("addSalida").onclick=function(){ state.items.push(blank()); renderItems(); changed(); window.scrollTo({top:document.body.scrollHeight,behavior:"smooth"}); };
+  $("addMismo").onclick=function(){ var n=blank(); n.cont=state.items.length>0; state.items.push(n); renderItems(); changed(); };
+  $("addNota").onclick=function(){ state.items.push({k:"nota",cont:false,day:"",time:"",text:""}); renderItems(); changed(); };
+  $("reset").onclick=function(){
+    if(!window.confirm("¿Borrar todos los datos y empezar de cero?")) return;
+    state.title="Salidas congregacionales"; state.subtitle=""; state.footer=""; state.items=[blank()];
+    bindTop(); renderItems(); changed();
+  };
+
+  /* ---------- Dibujo ---------- */
+  function wrap(text,maxW){
+    var out=[]; String(text||"").split("\n").forEach(function(par){
+      var words=par.split(/\s+/).filter(Boolean), line="";
+      if(!words.length) return;
+      words.forEach(function(w){
+        var test=line?line+" "+w:w;
+        if(ctx.measureText(test).width>maxW&&line){ out.push(line); line=w; } else { line=test; }
+      });
+      if(line) out.push(line);
+    });
+    return out;
+  }
+  function fmtTime(t){
+    t=(t||"").trim(); if(!t) return "";
+    if(/^\d{1,2}([:.]\d{2})?$/.test(t)) return t.replace(".",":")+" hs";
+    return t;
+  }
+  function setFont(w,size,fam,style){ ctx.font=(style||"")+" "+w+" "+size+"px "+fam; }
+  function spaced(on,px){ if("letterSpacing" in ctx) ctx.letterSpacing=on?px+"px":"0px"; }
+
+  function drawHeader(dry,th,pageLabel){
+    var y=150;
+    ctx.textBaseline="alphabetic"; spaced(false,0);
+    if(!dry){ ctx.fillStyle=th.accent; ctx.fillRect(M,y-34,72,6); }
+    if(!dry&&pageLabel){ ctx.textAlign="right"; ctx.fillStyle=th.muted; setFont(500,34,SANS); ctx.fillText(pageLabel,W-M,y-22); }
+    var sub=(state.subtitle||"").trim();
+    if(sub){
+      y+=44;
+      if(!dry){ ctx.textAlign="left"; ctx.fillStyle=th.accent; setFont(600,44,SANS); spaced(true,1); ctx.fillText(sub,M,y); spaced(false,0); }
+      y+=20;
+    }
+    var title=(state.title||"").trim();
+    if(title){
+      var tsize=120; setFont(600,tsize,SERIF); var tl=wrap(title,W-2*M);
+      while(tl.length>3&&tsize>64){ tsize-=6; setFont(600,tsize,SERIF); tl=wrap(title,W-2*M); }
+      tl.forEach(function(l){ y+=tsize*1.08; if(!dry){ ctx.textAlign="left"; ctx.fillStyle=th.ink; ctx.fillText(l,M,y); } });
+    }
+    return y+56;
+  }
+  function bounds(){
+    var hasF=(state.footer||"").trim();
+    return {footerY:H-150,bottom:hasF?H-150-70:H-130};
+  }
+
+  function render(s,dry,y0,th,list){
+    var y=y0, x0=M, xr=W-M, labelW=(setFont(500,34*s,SANS),ctx.measureText("Punto de encuentro").width), xv=x0+labelW+36*s, maxV=xr-xv;
+    ctx.textBaseline="alphabetic";
+    list.forEach(function(it,idx){
+      var showDay=!(it.cont&&idx>0);
+      if(idx>0) y+=(showDay?96:64)*s;
+      var day=showDay?(it.rday||"").trim():"", time=fmtTime(it.time);
+      var hs=78*s;
+      if(day||time){
+        y+=hs;
+        if(!dry){
+          if(day){ ctx.textAlign="left"; ctx.fillStyle=th.ink; setFont(500,hs,SERIF); ctx.fillText(day,x0,y); }
+          ctx.textAlign=day?"right":"left"; ctx.fillStyle=th.accent; setFont(600,50*s,SANS);
+          ctx.fillText(time,day?xr:x0,y);
+        }
+        y+=30*s;
+        if(!dry){ ctx.fillStyle=th.line; ctx.fillRect(x0,y,xr-x0,3); }
+        y+=26*s;
+      }
+      if(it.k==="salida"){
+        [["Punto de encuentro",it.meet],["1.º conductor",it.c1],["2.º conductor",it.c2],["Territorios",it.terr]].forEach(function(r){
+          if(!(r[1]||"").trim()) return;
+          setFont(500,50*s,SANS); var lines=wrap(r[1],maxV);
+          var lh=62*s; y+=38*s; var base=y+24*s;
+          if(!dry){
+            ctx.textAlign="left"; ctx.fillStyle=mix(th.muted,th.ink,0.4); setFont(500,34*s,SANS); ctx.fillText(r[0],x0,base);
+            ctx.fillStyle=th.ink; setFont(500,50*s,SANS);
+            lines.forEach(function(l,li){ ctx.fillText(l,xv,base+li*lh); });
+          }
+          y=base+(lines.length-1)*lh+16*s;
+        });
+      } else {
+        setFont(400,50*s,SERIF,"italic"); var ls=wrap(it.text,xr-x0);
+        ls.forEach(function(l){
+          y+=70*s;
+          if(!dry){ ctx.textAlign="left"; ctx.fillStyle=th.ink; setFont(400,50*s,SERIF,"italic"); ctx.fillText(l,x0,y); }
+        });
+        y+=6*s;
+      }
+    });
+    return y-y0;
+  }
+
+  function paginate(th){
+    ctx=scratch.getContext("2d");
+    var topY=drawHeader(true,th), avail=bounds().bottom-topY;
+    var prevDay="", list=state.items.map(function(it){
+      var c=JSON.parse(JSON.stringify(it)); var cont=!!it.cont;
+      c.rday=cont?prevDay:(it.day||""); c.cont=cont; prevDay=c.rday; return c;
+    });
+    var pages=[], cur=[];
+    list.forEach(function(r,i){
+      var test=cur.concat([r]);
+      if(cur.length&&render(MINFIT,true,0,th,test)>avail){ pages.push(cur); cur=[r]; } else { cur=test; }
+    });
+    if(cur.length||!pages.length) pages.push(cur);
+    return {pages:pages,topY:topY,avail:avail};
+  }
+
+  function drawPage(c,pi,P,th){
+    ctx=c.getContext("2d");
+    ctx.clearRect(0,0,W,H); ctx.fillStyle=th.bg; ctx.fillRect(0,0,W,H);
+    var n=P.pages.length;
+    var topY=drawHeader(false,th,n>1?(pi+1)+" de "+n:"");
+    var list=P.pages[pi], s=1, h=render(1,true,0,th,list);
+    while(h>P.avail&&s>0.45){ s-=0.02; h=render(s,true,0,th,list); }
+    var start=topY+Math.max(0,Math.min((P.avail-h)/2,180));
+    render(s,false,start,th,list);
+    var b=bounds(), f=(state.footer||"").trim();
+    if(f){
+      ctx.textAlign="center"; ctx.fillStyle=th.muted; setFont(400,38,SERIF,"italic");
+      wrap(f,W-2*M).forEach(function(l,i){ ctx.fillText(l,W/2,b.footerY+i*52); });
+    }
+    ctx.fillStyle=th.accent; ctx.fillRect(M,H-96,W-2*M,2);
+    ctx.textAlign="left";
+  }
+
+  function drawPreview(){
+    var th=getTheme(), P=paginate(th);
+    if(curPage>=P.pages.length) curPage=P.pages.length-1;
+    drawPage(cv,curPage,P,th);
+    // selector de imágenes
+    var pg=$("pages");
+    if(P.pages.length!==lastPages||pg.children.length!==(P.pages.length>1?P.pages.length:0)){
+      pg.innerHTML="";
+      if(P.pages.length>1){
+        for(var i=0;i<P.pages.length;i++){ (function(i){
+          var b=document.createElement("button"); b.type="button"; b.className="pg"; b.textContent="Imagen "+(i+1);
+          b.onclick=function(){ curPage=i; drawPreview(); }; pg.appendChild(b);
+        })(i); }
+      }
+      lastPages=P.pages.length;
+    }
+    pg.classList.toggle("on",P.pages.length>1);
+    Array.prototype.forEach.call(pg.children,function(b,i){ b.setAttribute("aria-pressed",String(i===curPage)); });
+    $("hint").textContent=P.pages.length>1
+      ? "Hay mucho contenido: se generan "+P.pages.length+" imágenes de 1080 × 1920 (9:16)."
+      : "Formato 1080 × 1920 (9:16), listo para WhatsApp.";
+  }
+
+  var pending=false;
+  function schedule(){ if(pending) return; pending=true; requestAnimationFrame(function(){ pending=false; drawPreview(); }); }
+  function changed(){ save(); schedule(); }
+
+  /* ---------- Exportar ---------- */
+  function allBlobs(){
+    var th=getTheme(), P=paginate(th), jobs=[];
+    P.pages.forEach(function(_,pi){
+      var c=document.createElement("canvas"); c.width=W; c.height=H;
+      drawPage(c,pi,P,th);
+      jobs.push(new Promise(function(res){ c.toBlob(res,"image/png"); }));
+    });
+    return Promise.all(jobs);
+  }
+  function stamp(){
+    var d=new Date(); return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2);
+  }
+  function names(n){ var a=[]; for(var i=0;i<n;i++) a.push("salidas-"+stamp()+(n>1?"-"+(i+1):"")+".png"); return a; }
+  function showOverlay(blobs){
+    var box=$("ov-imgs"); box.innerHTML="";
+    blobs.forEach(function(b){ var im=document.createElement("img"); im.src=URL.createObjectURL(b); im.alt="Imagen de salidas congregacionales"; box.appendChild(im); });
+    $("overlay").classList.add("on");
+  }
+  $("ov-close").onclick=function(){ $("overlay").classList.remove("on"); };
+
+  $("download").onclick=async function(){
+    var blobs=await allBlobs(), nm=names(blobs.length);
+    try{
+      blobs.forEach(function(b,i){ setTimeout(function(){
+        var a=document.createElement("a"); a.href=URL.createObjectURL(b); a.download=nm[i];
+        document.body.appendChild(a); a.click(); a.remove();
+      },i*400); });
+    }catch(e){}
+    showOverlay(blobs);
+  };
+  $("share").onclick=async function(){
+    var blobs=await allBlobs(), nm=names(blobs.length);
+    var files=blobs.map(function(b,i){ return new File([b],nm[i],{type:"image/png"}); });
+    try{
+      if(navigator.canShare&&navigator.canShare({files:files})){
+        await navigator.share({files:files,title:state.title||"Salidas congregacionales"});
+        return;
+      }
+    }catch(e){ if(e&&e.name==="AbortError") return; }
+    showOverlay(blobs);
+  };
+
+  /* ---------- Inicio ---------- */
+  bindTop(); renderItems(); drawPreview();
+  if(document.fonts&&document.fonts.load){
+    Promise.all([
+      document.fonts.load('600 60px Fraunces'),document.fonts.load('500 60px Fraunces'),
+      document.fonts.load('italic 400 40px Fraunces'),
+      document.fonts.load('400 30px Inter'),document.fonts.load('500 40px Inter'),document.fonts.load('600 36px Inter')
+    ]).then(drawPreview).catch(function(){});
+    document.fonts.ready.then(drawPreview);
+  }
+})();
+</script>
+</body>
+</html>
