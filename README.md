@@ -5,7 +5,8 @@ Se abre `index.html` en el navegador (computadora o celular), se cargan los dato
 
 ## Versiones
 
-- **v5** (actual, `index.html`): fondo siempre blanco (se quitan los temas oscuros); 13 paletas de color claras y profesionales más un color de acento personalizado.
+- **v6** (actual, `index.html`): etiquetas de la izquierda (punto de encuentro, conductores, territorios) un poco más grandes.
+- **v5** (`versiones/v5.html`): fondo siempre blanco (se quitan los temas oscuros); 13 paletas de color claras y profesionales más un color de acento personalizado.
 - **v4** (`versiones/v4.html`): datos de los valores un poco más chicos y etiquetas un poco más grandes; el ejemplo inicial usa datos ficticios.
 - **v3** (`versiones/v3.html`): textos más grandes y legibles (días, horarios, etiquetas y datos); "Punto de encuentro" en lugar de "Encuentro"; mejor aprovechamiento del formato vertical.
 - **v2** (`versiones/v2.html`): 12 paletas y color personalizado; varios horarios el mismo día; si hay mucho contenido genera varias imágenes automáticamente.

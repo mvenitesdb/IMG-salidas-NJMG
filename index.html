@@ -124,7 +124,7 @@ canvas{display:block;width:100%;height:auto;aspect-ratio:9/16;border-radius:8px;
 
 <script>
 (function(){
-  var VERSION="v5";
+  var VERSION="v6";
   var W=1080,H=1920,M=80,MINFIT=0.85;
   var THEMES={
     marino:{name:"Azul marino",bg:"#ffffff",ink:"#16213a",accent:"#2b4c9b",muted:"#7a8296",line:"#e0e3ea"},
@@ -314,7 +314,7 @@ canvas{display:block;width:100%;height:auto;aspect-ratio:9/16;border-radius:8px;
   }
 
   function render(s,dry,y0,th,list){
-    var y=y0, x0=M, xr=W-M, labelW=(setFont(500,38*s,SANS),ctx.measureText("Punto de encuentro").width), xv=x0+labelW+36*s, maxV=xr-xv;
+    var y=y0, x0=M, xr=W-M, labelW=(setFont(500,42*s,SANS),ctx.measureText("Punto de encuentro").width), xv=x0+labelW+36*s, maxV=xr-xv;
     ctx.textBaseline="alphabetic";
     list.forEach(function(it,idx){
       var showDay=!(it.cont&&idx>0);
@@ -338,7 +338,7 @@ canvas{display:block;width:100%;height:auto;aspect-ratio:9/16;border-radius:8px;
           setFont(500,46*s,SANS); var lines=wrap(r[1],maxV);
           var lh=58*s; y+=38*s; var base=y+24*s;
           if(!dry){
-            ctx.textAlign="left"; ctx.fillStyle=mix(th.muted,th.ink,0.4); setFont(500,38*s,SANS); ctx.fillText(r[0],x0,base);
+            ctx.textAlign="left"; ctx.fillStyle=mix(th.muted,th.ink,0.4); setFont(500,42*s,SANS); ctx.fillText(r[0],x0,base);
             ctx.fillStyle=th.ink; setFont(500,46*s,SANS);
             lines.forEach(function(l,li){ ctx.fillText(l,xv,base+li*lh); });
           }
